@@ -3,11 +3,15 @@ import { StyleSheet } from 'react-native';
 import { COLORS, FONT_SIZES, SPACING, BORDER_RADIUS, SHADOWS } from '../constants/theme';
 
 export const loginStyles = StyleSheet.create({
-  container: {
+  safeArea: { // This replaces the old 'container' for the SafeAreaView
     flex: 1,
     backgroundColor: COLORS.background,
-    justifyContent: 'center',
-    padding: SPACING.large,
+    // NO PADDING HERE. Let SafeAreaView handle the insets.
+  },
+  contentContainer: { // NEW: This will hold your main content and apply padding
+    flex: 1, // Allow content to take available space within safe area
+    justifyContent: 'center', // Keep content centered vertically
+    padding: SPACING.large, // Apply your desired padding here
   },
   headerText: {
     fontSize: FONT_SIZES.h1,
@@ -24,7 +28,7 @@ export const loginStyles = StyleSheet.create({
     fontSize: FONT_SIZES.medium,
     color: COLORS.primaryText,
     borderWidth: 1,
-    borderColor: COLORS.softText,
+    borderColor: COLORS.lightGray, // Use lightGray for input borders
     ...SHADOWS.small,
   },
   loginButton: {

@@ -10,7 +10,6 @@ interface CourseCarouselProps {
 }
 
 const CourseCarousel: React.FC<CourseCarouselProps> = ({ courses, onEnrollPress }) => (
-  <View>
     <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false} style={styles.courseSlider}>
       {courses.map((course) => (
         <View key={course.id} style={styles.courseCardFull}>
@@ -23,7 +22,6 @@ const CourseCarousel: React.FC<CourseCarouselProps> = ({ courses, onEnrollPress 
         </View>
       ))}
     </ScrollView>
-  </View>
 );
 
 export default CourseCarousel;

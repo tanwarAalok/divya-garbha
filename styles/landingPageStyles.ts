@@ -12,6 +12,7 @@ export const landingPageStyles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1, // Ensures content can grow and scroll
     paddingBottom: SPACING.xxxl, // Generous padding at the bottom for aesthetic
+    paddingHorizontal: SPACING.medium
   },
   container: { // Removed this style as safeArea and scrollViewContent now manage full screen and scroll
     //flex: 1,

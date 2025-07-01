@@ -1,7 +1,7 @@
 // app/index.tsx
 import React from 'react';
 import { ScrollView, TouchableOpacity, View, Text, SafeAreaView } from 'react-native'; // Import SafeAreaView
-import { Link } from 'expo-router'; // Link for navigation
+import { Link, useRouter } from 'expo-router'; // Link for navigation
 
 // Import styles
 import { landingPageStyles as styles } from '../styles/landingPageStyles'; // Ensure correct path
@@ -23,9 +23,12 @@ import { BlogItem } from '@/constants/types';
 
 
 export default function LandingPage() {
+  const router = useRouter();
+
   const handleOptionPress = (option: string) => {
-    console.log(`Option pressed: ${option}`);
-    // router.push(`/${option.toLowerCase()}`); // Placeholder for navigation
+    const routeName = option.replace(/\s+/g, '').toLowerCase();
+    console.log(`Navigating to content type: ${routeName}`);
+    router.push(`/content/${routeName}` as any);
   };
 
   const handleEnrollPress = (courseId: string) => {
