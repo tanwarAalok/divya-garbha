@@ -1,39 +1,28 @@
-// app/ContentScreen.tsx
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, Image, Linking, Alert, SafeAreaView } from 'react-native';
-import { useLocalSearchParams, Stack, useRouter, useNavigation } from 'expo-router';
-import { contentStyles as styles } from '../../styles/contentStyles';
-
-// Re-importing from your project's constants
+import { useLocalSearchParams, useRouter, useNavigation } from 'expo-router';
 import { APP_SPECIFIC_CONTENT } from '../../constants/data';
-import { COLORS, FONT_SIZES } from '../../constants/theme';
+import { COLORS, FONT_SIZES } from '../../constants/theme'; 
 
-// Define Trimester type for clarity
 type Trimester = 'first' | 'second' | 'third';
 
 export default function ContentScreen() {
   const router = useRouter();
   const navigation = useNavigation();
   const { contentType: rawContentType } = useLocalSearchParams();
-  // Ensure contentType is a valid key for APP_SPECIFIC_CONTENT
   const contentType = rawContentType as keyof typeof APP_SPECIFIC_CONTENT;
-
-  // State to manage the selected trimester
   const [selectedTrimester, setSelectedTrimester] = useState<Trimester>('first');
-
-  // Validate contentType and provide a fallback or error
   const contentData = APP_SPECIFIC_CONTENT[contentType];
 
   useEffect(() => {
-    // Set screen title dynamically
     if (contentType) {
       navigation.setOptions({
-        title: contentType.charAt(0).toUpperCase() + contentType.slice(1).replace(/([A-Z])/g, ' $1'), // Format "dietPlan" to "Diet Plan"
-        headerShown: true, // Ensure header is shown for content screens
+        title: contentType.charAt(0).toUpperCase() + contentType.slice(1).replace(/([A-Z])/g, ' $1'), 
+        headerShown: true, 
         headerStyle: {
-          backgroundColor: COLORS.background, // Match app background
+          backgroundColor: COLORS.background, 
         },
-        headerTintColor: COLORS.primaryText, // Text color for header title
+        headerTintColor: COLORS.primaryText,
         headerTitleStyle: {
           fontWeight: 'bold',
           fontSize: FONT_SIZES.h3,
@@ -42,14 +31,13 @@ export default function ContentScreen() {
     }
   }, [navigation, contentType]);
 
-  // Function to open external links (e.g., YouTube videos)
+
   const openLink = async (url?: string) => {
     if (url) {
       const supported = await Linking.canOpenURL(url);
       if (supported) {
         await Linking.openURL(url);
       } else {
-        // Using Alert for React Native environment, as window.alert is not available
         Alert.alert('Error', `Cannot open this URL: ${url}`);
       }
     }
@@ -57,38 +45,38 @@ export default function ContentScreen() {
 
   if (!contentData) {
     return (
-      <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>Content not found for "{contentType}".</Text>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <Text style={styles.backButtonText}>Go Back</Text>
+      <View className="flex-1 justify-center items-center bg-background p-large">
+        <Text className="text-h2 text-error text-center mb-large">
+          Content not found for "{contentType}".
+        </Text>
+        <TouchableOpacity onPress={() => router.back()}>
+          <Text className="text-white font-bold text-lg">
+            Go Back
+          </Text>
         </TouchableOpacity>
       </View>
     );
   }
 
-  // Get content for the selected trimester
   const currentTrimesterContent = contentData[selectedTrimester];
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.container}>
-          {/* Trimester Selector */}
-          <View style={styles.trimesterSelector}>
+    <SafeAreaView className="flex-1 bg-background"> 
+      <ScrollView className="flex-grow bg-background">
+        <View className="p-large">
+          <View className="flex-row justify-around mb-large bg-white rounded-full p-small shadow-sm">
             {['first', 'second', 'third'].map((trimester) => (
               <TouchableOpacity
                 key={trimester}
-                style={[
-                  styles.trimesterButton,
-                  selectedTrimester === trimester && styles.trimesterButtonActive,
-                ]}
+                className={`py-medium px-large rounded-full flex-1 items-center mx-tiny ${
+                  selectedTrimester === trimester ? 'bg-primaryAction' : '' 
+                }`}
                 onPress={() => setSelectedTrimester(trimester as Trimester)}
               >
                 <Text
-                  style={[
-                    styles.trimesterButtonText,
-                    selectedTrimester === trimester && styles.trimesterButtonTextActive,
-                  ]}
+                  className={`text-secondaryText font-semibold text-base ${
+                    selectedTrimester === trimester ? 'text-white' : '' 
+                  }`}
                 >
                   {trimester.charAt(0).toUpperCase() + trimester.slice(1)} Trimester
                 </Text>
@@ -96,31 +84,52 @@ export default function ContentScreen() {
             ))}
           </View>
 
-          {/* Display Content for Selected Trimester */}
           {currentTrimesterContent.length > 0 ? (
             currentTrimesterContent.map((item) => (
-              <View key={item.id} style={styles.contentCard}>
-                <Text style={styles.contentTitle}>{item.title}</Text>
-                <Text style={styles.contentDescription}>{item.description}</Text>
+              <View
+                key={item.id}
+                className="bg-white p-large rounded-medium mb-large shadow-md"
+              >
+                <Text className="text-lg font-bold text-primaryText mb-small">
+                  {item.title}
+                </Text>
+                <Text className="text-base text-secondaryText mb-medium leading-lg">
+                  {item.description}
+                </Text>
                 {item.imageUrl && (
-                  <Image source={{ uri: item.imageUrl }} style={styles.contentImage} />
+                  <Image
+                    source={{ uri: item.imageUrl }}
+                    className="w-full h-[200px] rounded-small mb-medium object-cover"
+                  />
                 )}
                 {item.videoUrl && (
-                  <TouchableOpacity onPress={() => openLink(item.videoUrl)} style={styles.videoButton}>
-                    <Text style={styles.videoButtonText}>Watch Video</Text>
+                  <TouchableOpacity
+                    onPress={() => openLink(item.videoUrl)}
+                    className="bg-vibrantAccent py-medium rounded-medium items-center mt-small"
+                  >
+                    <Text className="text-white font-bold text-base">
+                      Watch Video
+                    </Text>
                   </TouchableOpacity>
                 )}
                 {item.details && item.details.length > 0 && (
-                  <View style={styles.detailsContainer}>
+                  <View className="mt-small pl-medium">
                     {item.details.map((detail, index) => (
-                      <Text key={index} style={styles.detailText}>• {detail}</Text>
+                      <Text
+                        key={index}
+                        className="text-sm text-secondaryText mb-tiny"
+                      >
+                        • {detail}
+                      </Text>
                     ))}
                   </View>
                 )}
               </View>
             ))
           ) : (
-            <Text style={styles.noContentText}>No content available for this trimester yet.</Text>
+            <Text className="text-center text-lg text-secondaryText mt-xxl">
+              No content available for this trimester yet.
+            </Text>
           )}
         </View>
       </ScrollView>

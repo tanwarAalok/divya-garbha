@@ -1,6 +1,6 @@
-// app/_layout.tsx
 import { Stack } from 'expo-router';
 import React from 'react';
+import './global.css';
 
 export default function RootLayout() {
   return (
@@ -13,6 +13,7 @@ export default function RootLayout() {
       <Stack.Screen name="profile" options={{ headerShown: false }} />
       <Stack.Screen name="forgot-password" options={{ headerShown: false }} />
       <Stack.Screen name="content/[contentType]" options={{ headerShown: true }} />
+      <Stack.Screen name="test" options={{ headerShown: false }} />
     </Stack>
   );
 }

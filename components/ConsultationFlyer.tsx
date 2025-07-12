@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
-import { consultationFlyerStyles as styles } from './styles';
 
 interface ConsultationFlyerProps {
   title: string;
@@ -12,12 +11,22 @@ interface ConsultationFlyerProps {
 }
 
 const ConsultationFlyer: React.FC<ConsultationFlyerProps> = ({ title, description, ctaText, route }) => (
-  <View style={styles.flyerCard}>
-    <Text style={styles.flyerTitle}>{title}</Text>
-    <Text style={styles.flyerDescription}>{description}</Text>
+  <View
+    className="bg-courseBackground p-large rounded-medium my-large items-center shadow-lg"
+  >
+    <Text className="text-lg font-bold text-white text-center mb-small">
+      {title}
+    </Text>
+    <Text className="text-base text-white text-center mb-medium opacity-90">
+      {description}
+    </Text>
     <Link href={route as any} asChild>
-      <TouchableOpacity style={styles.ctaButton}>
-        <Text style={styles.ctaButtonText}>{ctaText}</Text>
+      <TouchableOpacity
+        className="bg-primaryAction py-medium px-extraLarge rounded-full shadow-md"
+      >
+        <Text className="text-lg font-bold text-white">
+          {ctaText}
+        </Text>
       </TouchableOpacity>
     </Link>
   </View>

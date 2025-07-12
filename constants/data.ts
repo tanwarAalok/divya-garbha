@@ -145,21 +145,37 @@ export const ONBOARDING_CONTENT = {
     {
       title: "Ancient Wisdom, Modern Science",
       description: "Discover Garbha Sanskar, blending traditional practices with evidence-based research for holistic well-being.",
-      image: require('../assets/images/mother.png'), // Placeholder, use a specific onboarding image if available
+      image: require('../assets/images/mother.png'),
     },
     {
       title: "Personalized Journeys",
       description: "Tailored yoga, meditation, diet, and music for every trimester, guided by experts.",
-      image: require('../assets/images/mother.png'), // Placeholder
+      image: require('../assets/images/mother.png'),
     },
     {
       title: "Connect & Grow",
       description: "Access live webinars, consultations, and a community of expectant mothers.",
-      image: require('../assets/images/mother.png'), // Placeholder
+      image: require('../assets/images/mother.png'),
+    },
+    // Adding more features to ensure scrollability
+    {
+      title: "Daily Affirmations",
+      description: "Start your day with positive thoughts and intentions for you and your baby.",
+      image: require('../assets/images/mother.png'),
+    },
+    {
+      title: "Diet Plans & Recipes",
+      description: "Trimester-specific nutritional guidance for a healthy pregnancy.",
+      image: require('../assets/images/mother.png'),
+    },
+    {
+      title: "Spiritual Insights",
+      description: "Daily verses and stories from ancient texts for spiritual nourishment.",
+      image: require('../assets/images/mother.png'),
     },
   ],
   ctaLogin: "Already have an account? Login",
-  ctaSignup: "Start Your Journey", // Or "Create Account"
+  ctaSignup: "Start Your Journey",
 };
 
 // --- NEW CONTENT DATA ---

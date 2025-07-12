@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { loginStyles as styles } from '../styles/loginStyles';
-import { COLORS } from '../constants/theme'; // Ensure COLORS is imported for placeholderTextColor
+// No longer importing loginStyles as styles are now in Tailwind classes
+// import { loginStyles as styles } from '../styles/loginStyles';
+// No longer importing COLORS directly as they are in Tailwind config.
+// import { COLORS } from '@/constants/theme';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -21,7 +23,8 @@ export default function LoginPage() {
 
   const handleForgotPassword = () => {
     console.log('Navigating to forgot password page.');
-    router.push('/forgot-password');
+    // router.push('/forgot-password'); // Uncomment and use if you have this route
+    Alert.alert('Forgot Password', 'Simulating navigation to forgot password.');
   };
 
   const handleSignUp = () => {
@@ -30,14 +33,16 @@ export default function LoginPage() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}> {/* Apply primary flex & background here */}
-      <View style={styles.contentContainer}> {/* NEW: This inner View gets the padding */}
-        <Text style={styles.headerText}>Login to Your Account</Text>
+    <SafeAreaView className="flex-1 bg-background"> {/* safeArea style */}
+      <View className="flex-1 justify-center p-large"> {/* contentContainer style */}
+        <Text className="text-h1 font-bold text-primaryText text-center mb-extraLarge">
+          Login to Your Account
+        </Text>
 
         <TextInput
-          style={styles.input}
+          className="bg-white p-medium rounded-medium mb-medium text-base text-primaryText border border-lightGray shadow-sm"
           placeholder="Email"
-          placeholderTextColor={COLORS.secondaryText} // Use secondaryText for placeholders
+          placeholderTextColor="#6D4C41" // Use hex for specific placeholder color
           keyboardType="email-address"
           autoCapitalize="none"
           value={email}
@@ -45,25 +50,34 @@ export default function LoginPage() {
         />
 
         <TextInput
-          style={styles.input}
+          className="bg-white p-medium rounded-medium mb-medium text-base text-primaryText border border-lightGray shadow-sm"
           placeholder="Password"
-          placeholderTextColor={COLORS.secondaryText} // Use secondaryText for placeholders
+          placeholderTextColor="#6D4C41" // Use hex for specific placeholder color
           secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
 
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-          <Text style={styles.loginButtonText}>Login</Text>
+        <TouchableOpacity
+          className="bg-primaryAction py-medium rounded-full items-center my-large shadow-lg"
+          onPress={handleLogin}
+        >
+          <Text className="text-lg font-bold text-white">
+            Login
+          </Text>
         </TouchableOpacity>
 
-        <View style={styles.linkContainer}>
+        <View className="items-center mt-medium">
           <TouchableOpacity onPress={handleForgotPassword}>
-            <Text style={styles.linkText}>Forgot Password?</Text>
+            <Text className="text-base font-semibold underline text-primaryAction mb-small">
+              Forgot Password?
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={handleSignUp}>
-            <Text style={styles.linkText}>Don't have an account? Sign Up</Text>
+            <Text className="text-base font-semibold underline text-primaryAction">
+              Don't have an account? Sign Up
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

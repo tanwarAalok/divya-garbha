@@ -1,82 +1,74 @@
-// app/dashboard.tsx
-import { ScrollView, View, Text } from 'react-native';
-import { dashboardStyles as styles } from '../styles/dashboardStyles'; // Import dashboard specific styles
+import { ScrollView, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
 
-// Import common and dashboard-specific components
+import BlogSection from '../components/BlogSection';
 import SectionTitle from '../components/common/SectionTitle';
-import CourseCarousel from '../components/CourseCarousel/CourseCarousel'; // Can reuse
-import BlogSection from '../components/BlogSection/BlogSection'; // Can reuse
-import DailyFeaturesGrid from '../components/DailyFeaturesGrid/DailyFeaturesGrid'; // New
-import ConsultationFlyer from '../components/ConsultationFlyer/ConsultationFlyer'; // New
-import DashboardFooter from '../components/DashboardFooter/DashboardFooter'; // New
+import ConsultationFlyer from '../components/ConsultationFlyer';
+import CourseCarousel from '../components/CourseCarousel';
+import DailyFeaturesGrid from '../components/DailyFeaturesGrid';
+import DashboardFooter from '../components/DashboardFooter';
 
-// Import data for dashboard
+import DashboardHeader from '@/components/DashboardHeader';
+import { BlogItem } from '@/constants/types';
 import {
-  ENROLLED_COURSES,
-  DAILY_FEATURES_OPTIONS,
   BLOG_POSTS,
   CONSULTATION_FLYER_INFO,
-  DASHBOARD_FOOTER_NAV_ITEMS
+  DAILY_FEATURES_OPTIONS,
+  DASHBOARD_FOOTER_NAV_ITEMS,
+  ENROLLED_COURSES
 } from '../constants/data';
-import { BlogItem } from '@/constants/types';
-import DashboardHeader from '@/components/DashboardHeader/DashboardHeader';
 
 export default function DashboardPage() {
-  const userName = "Expectant Mother"; // Placeholder for dynamic user name
+  const userName = "Expectant Mother"; 
+  const router = useRouter();
 
-  // Handlers for interactions (implement actual navigation/actions later)
+
   const handleCourseEnrollPress = (courseId: string) => {
     console.log(`Navigating to enrolled course: ${courseId}`);
-    // router.push(`/courses/${courseId}`);
+    router.push(`/courses/${courseId}` as any); 
   };
 
   const handleDailyFeaturePress = (featureId: string) => {
     console.log(`Navigating to daily feature: ${featureId}`);
-    // router.push(`/${featureId}`);
+    router.push(`/content/${featureId}` as any); 
   };
 
   const handleReadMoreBlog = (post: BlogItem) => {
     console.log(`Reading more about blog: ${post.title}`);
-    // router.push(`/blog/${post.slug}`);
+    router.push(`/blog/${post.slug}` as any); 
   };
 
-  const handleViewAllBlogs = () => {
-    console.log('Navigating to all blogs page.');
-    // In a real app, navigate to a dedicated blog list page: router.push('/blogs');
-  };
 
-  // Placeholder for user initials (e.g., from user data)
   const userInitials = userName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0,2);
 
   const handleProfilePress = () => {
     console.log('Navigating to user profile.');
-    // router.push('/profile');
+    router.push('/profile' as any); 
   };
 
-  // Note: ConsultationFlyer has its own Link, so no direct handler needed here unless custom logic
-
   return (
-    <View style={{ flex: 1, backgroundColor: styles.container.backgroundColor }}> {/* Main view to allow footer to stick to bottom */}
-      {/* Dashboard Header */}
+    <View className="flex-1 bg-background">
       <DashboardHeader
-        appLogoSource={require('../assets/images/mother.png')} // Replace with your actual app logo path
+        appLogoSource={require('../assets/images/mother.png')} 
         // profileImageSource={require('../assets/images/user-profile.png')} // Uncomment if you have a user profile image
-        userNameInitials={userInitials} // Pass user initials for placeholder
+        userNameInitials={userInitials} 
         onProfilePress={handleProfilePress}
       />
 
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView className="flex-grow bg-background px-large pb-[48px]">
         {/* Welcome Section */}
-        <View style={styles.welcomeContainer}>
-          <Text style={styles.welcomeText}>Welcome, {userName}!</Text>
-          <Text style={styles.quoteText}>
+        <View className="bg-lightOrange p-large rounded-medium my-large items-center shadow-md">
+          <Text className="text-lg font-bold text-primaryText mb-small">
+            Welcome, {userName}!
+          </Text>
+          <Text className="text-base text-secondaryText italic text-center leading-lg">
             "Every step of pregnancy is a miracle. Nurture it with love and ancient wisdom."
           </Text>
         </View>
 
         {/* Your Enrolled Courses */}
+        <SectionTitle title="Continue Learning" />
         <CourseCarousel
-          title="Continue Learning"
           courses={ENROLLED_COURSES}
           onEnrollPress={handleCourseEnrollPress}
         />
@@ -89,9 +81,9 @@ export default function DashboardPage() {
         />
 
         {/* Latest Insights / Blog Updates */}
+        <SectionTitle title="Latest Insights" />
         <BlogSection
-          title="Latest Insights"
-          posts={BLOG_POSTS} // Display a few latest blogs
+          posts={BLOG_POSTS} 
           limit={2}
           onReadMore={handleReadMoreBlog}
           // No onViewAllBlogs here, as dashboard focuses on highlights

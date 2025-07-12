@@ -1,32 +1,61 @@
-// app/index.tsx
+import { Link, useRouter } from 'expo-router';
 import React from 'react';
-import { ScrollView, TouchableOpacity, View, Text, SafeAreaView } from 'react-native'; // Import SafeAreaView
-import { Link, useRouter } from 'expo-router'; // Link for navigation
-
-// Import styles
-import { landingPageStyles as styles } from '../styles/landingPageStyles'; // Ensure correct path
-
-// Import components (ensure paths are correct based on your structure)
-import SectionTitle from '../components/common/SectionTitle'; // Re-order for clarity
-import HeroSection from '../components/HeroSection/HeroSection';
-import OptionsGrid from '../components/OptionsGrid/OptionsGrid';
-import CourseCarousel from '../components/CourseCarousel/CourseCarousel';
-import BlogSection from '../components/BlogSection/BlogSection';
-import TestimonialSection from '../components/TestimonialSection/TestimonialSection';
-import CTAButton from '../components/CTAButton/CTAButton';
-import FAQSection from '../components/FAQSection/FAQSection';
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, Dimensions } from 'react-native';
 
 
-// Import data
-import { APP_OPTIONS, BLOG_POSTS, CTA_MESSAGES, FAQS, POPULAR_COURSES, TESTIMONIALS } from '../constants/data';
+import BlogSection from '../components/BlogSection';
+import SectionTitle from '../components/common/SectionTitle';
+import CourseCarousel from '../components/CourseCarousel';
+import CTAButton from '../components/CTAButton';
+import FAQSection from '../components/FAQSection';
+import HeroSection from '../components/HeroSection';
+import OptionsGrid from '../components/OptionsGrid';
+import TestimonialSection from '../components/TestimonialSection';
+
+
 import { BlogItem } from '@/constants/types';
+import { APP_OPTIONS, BLOG_POSTS, CTA_MESSAGES, FAQS, POPULAR_COURSES, TESTIMONIALS } from '../constants/data';
 
+const { width } = Dimensions.get('window'); 
 
 export default function LandingPage() {
   const router = useRouter();
 
   const handleOptionPress = (option: string) => {
-    const routeName = option.replace(/\s+/g, '').toLowerCase();
+    // Convert option name to a route-friendly format (e.g., "Diet Plan" to "dietPlan")
+    let routeName: string;
+    switch (option) {
+      case 'Diet Plan':
+        routeName = 'dietPlan';
+        break;
+      case 'Music':
+        routeName = 'music';
+        break;
+      case 'Yoga':
+        routeName = 'yoga';
+        break;
+      case 'Therapy':
+        routeName = 'therapy';
+        break;
+      case 'Stories':
+        routeName = 'stories';
+        break;
+      case 'Sanskars':
+        routeName = 'sanskars';
+        break;
+      case 'Meditation':
+        routeName = 'meditation';
+        break;
+      case 'Mantras':
+        routeName = 'mantras';
+        break;
+      case 'Affirmations':
+        routeName = 'affirmations';
+        break;
+      default:
+        routeName = option.toLowerCase().replace(/\s+/g, '');
+    }
+
     console.log(`Navigating to content type: ${routeName}`);
     router.push(`/content/${routeName}` as any);
   };
@@ -47,8 +76,8 @@ export default function LandingPage() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}> {/* Use SafeAreaView for proper padding */}
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+    <SafeAreaView className="flex-1 bg-background"> 
+      <ScrollView className="flex-grow pb-xxxl px-medium"> 
 
         {/* 1. Hero Section - The App's Introduction */}
         <HeroSection
@@ -58,16 +87,28 @@ export default function LandingPage() {
         />
 
         {/* 2. Primary Call to Action Buttons - Get Started or Login */}
-        <View style={styles.authButtonContainer}>
+        <View
+          className="flex-row justify-around items-center px-large py-medium mb-extraLarge mt-large"
+        >
           <Link href="/onboarding" asChild>
-            <TouchableOpacity style={styles.getStartedButton}>
-              <Text style={styles.getStartedButtonText}>Get Started</Text>
+            <TouchableOpacity
+              className="bg-primaryAction py-medium px-large rounded-full shadow-md items-center"
+              style={{ minWidth: width * 0.4 }} 
+            >
+              <Text className="text-lg font-bold text-white"> 
+                Get Started
+              </Text>
             </TouchableOpacity>
           </Link>
 
           <Link href="/login" asChild>
-            <TouchableOpacity style={styles.loginButton}>
-              <Text style={styles.loginButtonText}>Login</Text>
+            <TouchableOpacity
+              className="bg-accentBackground py-medium px-large rounded-full border border-primaryAction items-center"
+              style={{ minWidth: width * 0.4 }} 
+            >
+              <Text className="text-lg font-bold text-primaryAction">
+                Login
+              </Text>
             </TouchableOpacity>
           </Link>
         </View>
@@ -92,7 +133,7 @@ export default function LandingPage() {
           posts={BLOG_POSTS}
           onReadMore={handleReadMoreBlog}
           onViewAllBlogs={handleViewAllBlogs}
-          limit={2} // Show 2 latest blogs for conciseness on landing
+          limit={2} 
         />
 
         {/* 6. What Mothers Say - Build Trust and Social Proof */}
