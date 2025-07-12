@@ -111,15 +111,12 @@ export const ENROLLED_COURSES: CourseItem[] = [
 ];
 
 export const DAILY_FEATURES_OPTIONS: DailyFeature[] = [
-  { id: 'yoga', name: 'Yoga', icon: '../assets/images/music-icon.png', route: '/content/yoga' }, // Updated route
-  { id: 'dietPlan', name: 'Diet Plan', icon: 'food-apple', route: '/content/dietPlan' }, // Updated route
-  { id: 'music', name: 'Music Therapy', icon: 'music', route: '/content/music' }, // Updated route
-  { id: 'therapy', name: 'Sound Therapy', icon: 'waves', route: '/content/therapy' }, // Updated route
-  { id: 'stories', name: 'Storytelling', icon: 'book-open', route: '/content/stories' }, // Updated route
-  { id: 'meditation', name: 'Meditation', icon: 'leaf', route: '/content/meditation' }, // Updated route
-  { id: 'sanskars', name: 'Sanskars', icon: 'star', route: '/content/sanskars' }, // Updated route
-  { id: 'mantras', name: 'Mantras', icon: 'bell', route: '/content/mantras' }, // Updated route
-  { id: 'affirmations', name: 'Affirmations', icon: 'heart', route: '/content/affirmations' }, // Updated route
+  { id: 'yoga', name: 'Yoga', icon: require('../assets/images/yoga.png'), route: '/content/yoga' },
+  { id: 'meditation', name: 'Meditation', icon: require('../assets/images/meditation.png'), route: '/content/meditation' },
+  { id: 'mantras', name: 'Mantras', icon: require('../assets/images/mantras.png'), route: '/content/mantras' },
+  { id: 'dietPlan', name: 'Diet Plan', icon: require('../assets/images/dietPlan.png'), route: '/content/dietPlan' },
+  { id: 'music', name: 'Music Therapy', icon: require('../assets/images/music.png'), route: '/content/music' },
+  { id: 'stories', name: 'Storytelling', icon: require('../assets/images/stories.png'), route: '/content/stories' },
 ];
 
 

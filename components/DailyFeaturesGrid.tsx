@@ -17,14 +17,14 @@ const DailyFeaturesGrid: React.FC<DailyFeaturesGridProps> = ({ features, onFeatu
     {features.map((feature) => (
       <TouchableOpacity
         key={feature.id}
-        style={{ width: (width - 48) / 3 - 8 }} // (screen_width - padding_horizontal*2) / num_items - margin_between
+        style={{ width: (width - 48) / 3 - 8 }}
         className="bg-accentHighlight p-medium rounded-large items-center justify-center mb-medium shadow-small border border-accentBackground rounded-md"
         onPress={() => onFeaturePress && onFeaturePress(feature.id)}
       >
 
         <Image
-          source={require('../assets/images/music-icon.png')}
-          style={{ width: 64, height: 64, marginBottom: 8 }} 
+          source={feature.icon}
+          style={{ width: 64, height: 64, marginBottom: 8 }}
           resizeMode="contain"
         />
         <Text

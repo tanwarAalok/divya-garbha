@@ -25,13 +25,13 @@ export interface TestimonialItem {
 export interface DailyFeature {
   id: string;
   name: string;
-  icon?: string; // Optional icon name (e.g., for vector icons library)
-  route: string; // Route within the app to navigate to
+  icon: any;
+  route: string; 
 }
 
 export interface FooterNavItem {
   name: string;
-  icon?: string; // Optional icon
+  icon?: string; 
   route: string;
 }
 
