@@ -1,3 +1,4 @@
+// components/BlogSection.tsx
 import { BlogItem } from '@/constants/types';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -5,7 +6,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 interface BlogSectionProps {
   posts: BlogItem[];
   onReadMore?: (post: BlogItem) => void;
-  onViewAllBlogs?: () => void; 
+  onViewAllBlogs?: () => void;
   limit?: number;
 }
 
@@ -14,34 +15,34 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts, onReadMore, onViewAllB
 
   return (
     <View>
-      {displayedPosts.map((post, index) => (
+      {displayedPosts.map((post) => (
         <View
-          key={index}
-          className="bg-white p-medium rounded-medium mb-small border-l-4 border-primaryAction shadow-sm"
+          key={post.slug}
+          className="bg-white p-6 rounded-xl mb-4 shadow-sm border-l-4 border-primaryAction"
         >
-          <Text className="text-base font-bold text-secondaryText">
+          <Text className="text-xl font-bold text-primaryText">
             {post.title}
           </Text>
-          <Text className="text-sm text-secondaryText mt-1">
+          <Text className="text-base text-secondaryText mt-2 leading-6">
             {post.excerpt}
           </Text>
           <TouchableOpacity
-            className="self-end mt-small py-small/2 px-small" // `py-small/2` or `px-small` if SPACING has custom values or use Tailwind defaults. Nativewind allows arbitrary values like `p-[8px]` for custom spacing.
+            className="self-end mt-4"
             onPress={() => onReadMore && onReadMore(post)}
           >
-            <Text className="text-sm font-bold text-primaryAction">
+            <Text className="text-base font-bold text-primaryAction">
               Read More
             </Text>
           </TouchableOpacity>
         </View>
       ))}
-      {posts.length > limit && ( // Show "View All" only if there are more posts than the limit
+      {posts.length > limit && (
         <TouchableOpacity
-          className="mt-medium py-medium bg-accentHighlight rounded-full items-center justify-center shadow-sm"
+          className="mt-4 py-3 bg-accentHighlight rounded-full items-center justify-center shadow-sm"
           onPress={onViewAllBlogs}
         >
           <Text className="text-base font-bold text-primaryText">
-            View All Blogs
+            View All Insights
           </Text>
         </TouchableOpacity>
       )}

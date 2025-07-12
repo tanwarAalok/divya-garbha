@@ -111,7 +111,7 @@ export const ENROLLED_COURSES: CourseItem[] = [
 ];
 
 export const DAILY_FEATURES_OPTIONS: DailyFeature[] = [
-  { id: 'yoga', name: 'Yoga', icon: 'yoga', route: '/content/yoga' }, // Updated route
+  { id: 'yoga', name: 'Yoga', icon: '../assets/images/music-icon.png', route: '/content/yoga' }, // Updated route
   { id: 'dietPlan', name: 'Diet Plan', icon: 'food-apple', route: '/content/dietPlan' }, // Updated route
   { id: 'music', name: 'Music Therapy', icon: 'music', route: '/content/music' }, // Updated route
   { id: 'therapy', name: 'Sound Therapy', icon: 'waves', route: '/content/therapy' }, // Updated route

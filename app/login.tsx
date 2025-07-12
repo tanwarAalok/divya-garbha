@@ -1,11 +1,7 @@
 // app/login.tsx
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert, Image } from 'react-native';
 import { useRouter } from 'expo-router';
-// No longer importing loginStyles as styles are now in Tailwind classes
-// import { loginStyles as styles } from '../styles/loginStyles';
-// No longer importing COLORS directly as they are in Tailwind config.
-// import { COLORS } from '@/constants/theme';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -23,7 +19,7 @@ export default function LoginPage() {
 
   const handleForgotPassword = () => {
     console.log('Navigating to forgot password page.');
-    // router.push('/forgot-password'); // Uncomment and use if you have this route
+    // router.push('/forgot-password');
     Alert.alert('Forgot Password', 'Simulating navigation to forgot password.');
   };
 
@@ -33,16 +29,24 @@ export default function LoginPage() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-background"> {/* safeArea style */}
-      <View className="flex-1 justify-center p-large"> {/* contentContainer style */}
-        <Text className="text-h1 font-bold text-primaryText text-center mb-extraLarge">
-          Login to Your Account
-        </Text>
+    <SafeAreaView className="flex-1 bg-background">
+      <View className="flex-1 justify-center p-6">
+
+        <View className="flex flex-col items-center px-6 pt-12">
+          <Image source={require('../assets/images/logo-t.png')}  />
+          <Text className="text-4xl font-bold text-primaryText text-center mb-6">
+            Welcome Back
+          </Text>
+          <Text className="text-center text-secondaryText text-lg mb-12">
+            Login to your account to continue
+          </Text>
+        </View>
+
 
         <TextInput
-          className="bg-white p-medium rounded-medium mb-medium text-base text-primaryText border border-lightGray shadow-sm"
-          placeholder="Email"
-          placeholderTextColor="#6D4C41" // Use hex for specific placeholder color
+          className="bg-white p-4 rounded-xl mb-4 text-base text-primaryText border border-gray-200 shadow-sm"
+          placeholder="Email Address"
+          placeholderTextColor="#A1887F"
           keyboardType="email-address"
           autoCapitalize="none"
           value={email}
@@ -50,33 +54,36 @@ export default function LoginPage() {
         />
 
         <TextInput
-          className="bg-white p-medium rounded-medium mb-medium text-base text-primaryText border border-lightGray shadow-sm"
+          className="bg-white p-4 rounded-xl mb-6 text-base text-primaryText border border-gray-200 shadow-sm"
           placeholder="Password"
-          placeholderTextColor="#6D4C41" // Use hex for specific placeholder color
+          placeholderTextColor="#A1887F"
           secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
 
         <TouchableOpacity
-          className="bg-primaryAction py-medium rounded-full items-center my-large shadow-lg"
+          className="bg-primaryAction py-4 rounded-full items-center my-8 shadow-lg"
           onPress={handleLogin}
         >
-          <Text className="text-lg font-bold text-white">
+          <Text className="text-xl font-bold text-white">
             Login
           </Text>
         </TouchableOpacity>
 
-        <View className="items-center mt-medium">
+        <View className="items-center mt-6">
           <TouchableOpacity onPress={handleForgotPassword}>
-            <Text className="text-base font-semibold underline text-primaryAction mb-small">
+            <Text className="text-base font-semibold underline text-primaryAction mb-2">
               Forgot Password?
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={handleSignUp}>
-            <Text className="text-base font-semibold underline text-primaryAction">
-              Don't have an account? Sign Up
+            <Text className="text-base text-secondaryText">
+              Don't have an account?{' '}
+              <Text className="font-bold underline text-primaryAction">
+                Sign Up
+              </Text>
             </Text>
           </TouchableOpacity>
         </View>

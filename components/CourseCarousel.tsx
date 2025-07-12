@@ -1,9 +1,9 @@
 // components/CourseCarousel.tsx
 import { CourseItem } from '@/constants/types';
 import React from 'react';
-import { Image, ScrollView, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import { Dimensions, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
-const { width } = Dimensions.get('window'); // Get screen width for responsive card width
+const { width } = Dimensions.get('window');
 
 interface CourseCarouselProps {
   courses: CourseItem[];
@@ -11,36 +11,47 @@ interface CourseCarouselProps {
 }
 
 const CourseCarousel: React.FC<CourseCarouselProps> = ({ courses, onEnrollPress }) => (
-  // The ScrollView itself
   <ScrollView
     horizontal
     pagingEnabled
     showsHorizontalScrollIndicator={false}
-    className="my-medium" // marginVertical: SPACING.medium
+    contentContainerStyle={{ paddingHorizontal: 16 }}
   >
-    {courses.map((course) => (
-      // Individual Course Card
+    {courses.map((course, index) => (
       <View
         key={course.id}
-        className="bg-courseBackground p-small rounded-medium mr-medium shadow-md"
-        style={{ width: width - (16 /* SPACING.large */ * 2) }} // Full width minus container padding
+        className="bg-courseBackground p-4 rounded-xl shadow-md mr-2"
+        style={{
+          width: width - 62, 
+          height: 420,     
+          justifyContent: 'flex-start',
+        }}
       >
         <Image
           source={course.image}
-          className="h-[180px] w-full rounded-small mb-small object-cover" // height: 180, width: '100%', borderRadius: BORDER_RADIUS.small, marginBottom: SPACING.small, resizeMode: 'cover'
+          style={{
+            width: '100%',
+            height: 200,
+          }}
+          resizeMode="contain"
+          className="rounded-lg mb-4 self-center"
         />
-        <Text className="text-white text-lg font-bold mb-tiny"> {/* color: COLORS.white, fontSize: FONT_SIZES.large, fontWeight: 'bold', marginBottom: SPACING.small / 2 */}
+        <Text className="text-white text-xl font-bold mb-2">
           {course.title}
         </Text>
-        <Text className="text-sm text-white leading-base mb-small"> {/* color: COLORS.white, fontSize: FONT_SIZES.small, lineHeight: FONT_SIZES.medium, marginBottom: SPACING.small */}
+        <Text
+          className="text-sm text-white opacity-90 leading-6 mb-4 flex-grow"
+          numberOfLines={3} // limit lines if you want
+          ellipsizeMode="tail"
+        >
           {course.description}
         </Text>
         <TouchableOpacity
-          className="mt-auto bg-primaryAction rounded-full py-small items-center" // marginTop: 'auto', backgroundColor: COLORS.primaryAction, borderRadius: BORDER_RADIUS.round, paddingVertical: SPACING.small, alignItems: 'center'
+          className="mt-auto bg-primaryAction rounded-full py-3 items-center shadow-lg"
           onPress={() => onEnrollPress && onEnrollPress(course.id)}
         >
-          <Text className="text-base font-semibold text-white"> {/* color: COLORS.white, fontWeight: '600', fontSize: FONT_SIZES.medium */}
-            Enroll
+          <Text className="text-base font-bold text-white">
+            Enroll Now
           </Text>
         </TouchableOpacity>
       </View>

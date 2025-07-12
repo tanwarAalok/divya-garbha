@@ -12,17 +12,17 @@ interface ConsultationFlyerProps {
 
 const ConsultationFlyer: React.FC<ConsultationFlyerProps> = ({ title, description, ctaText, route }) => (
   <View
-    className="bg-courseBackground p-large rounded-medium my-large items-center shadow-lg"
+    className="bg-courseBackground p-6 rounded-xl my-12 items-center shadow-lg"
   >
-    <Text className="text-lg font-bold text-white text-center mb-small">
+    <Text className="text-2xl font-bold text-white text-center mb-2">
       {title}
     </Text>
-    <Text className="text-base text-white text-center mb-medium opacity-90">
+    <Text className="text-base text-white text-center mb-6 opacity-90 leading-6">
       {description}
     </Text>
     <Link href={route as any} asChild>
       <TouchableOpacity
-        className="bg-primaryAction py-medium px-extraLarge rounded-full shadow-md"
+        className="bg-primaryAction py-3 px-8 rounded-full shadow-md"
       >
         <Text className="text-lg font-bold text-white">
           {ctaText}
