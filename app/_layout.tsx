@@ -13,7 +13,7 @@ export default function RootLayout() {
       <Stack.Screen name="profile" options={{ headerShown: false }} />
       <Stack.Screen name="forgot-password" options={{ headerShown: false }} />
       <Stack.Screen name="content/[contentType]" options={{ headerShown: true }} />
-      <Stack.Screen name="test" options={{ headerShown: false }} />
+      <Stack.Screen name="courses" options={{ headerShown: false }} />
     </Stack>
   );
 }

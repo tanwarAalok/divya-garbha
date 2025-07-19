@@ -15,6 +15,20 @@ export interface CourseItem {
   title: string;
   description: string;
   image: any;
+  sections ? : CourseSection[];
+}
+
+export interface CourseSection {
+  title: string;
+  lessons: Lesson[];
+}
+
+export interface Lesson {
+  id: string; 
+  title: string;
+  type: 'video' | 'text';
+  content: string;
+  duration?: string; 
 }
 
 export interface TestimonialItem {

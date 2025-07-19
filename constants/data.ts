@@ -104,11 +104,58 @@ export const CTA_MESSAGES = {
   // You could have other CTAs here for different contexts
 };
 
-export const ENROLLED_COURSES: CourseItem[] = [
-  POPULAR_COURSES[0],
-  POPULAR_COURSES[2],
-  { id: '4', title: 'Baby Brain Development', description: 'Activities and tips to stimulate your baby\'s cognitive growth during pregnancy.', image: require('../assets/images/mother.png') },
-];
+export const ENROLLED_COURSES: CourseItem[] = [{
+  ...POPULAR_COURSES[0], // Prenatal Yoga
+  sections: [{
+    title: 'Section 1: Introduction to Prenatal Yoga',
+    lessons: [{
+      id: 'py_1_1',
+      title: 'What is Prenatal Yoga?',
+      type: 'text',
+      content: 'Prenatal yoga is a multifaceted approach to exercise that encourages stretching, mental centering and focused breathing. Research suggests that prenatal yoga is safe and can have many benefits for pregnant women and their babies.'
+    }, {
+      id: 'py_1_2',
+      title: 'Benefits of Prenatal Yoga',
+      type: 'video',
+      content: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      duration: '5:45'
+    }, ]
+  }, {
+    title: 'Section 2: First Trimester Poses',
+    lessons: [{
+      id: 'py_2_1',
+      title: 'Gentle Stretches & Breathing',
+      type: 'video',
+      content: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      duration: '12:30'
+    }, ]
+  }, ],
+}, {
+  ...POPULAR_COURSES[2], // Mindful Meditation
+  sections: [{
+    title: 'Section 1: Introduction to Meditation',
+    lessons: [{
+      id: 'mm_1_1',
+      title: 'The Power of Mindfulness',
+      type: 'text',
+      content: 'This is the text content for the power of mindfulness.'
+    }, ]
+  }, ],
+}, {
+  id: '4',
+  title: 'Baby Brain Development',
+  description: 'Activities and tips to stimulate your baby\'s cognitive growth during pregnancy.',
+  image: require('../assets/images/mother.png'),
+  sections: [{
+    title: 'Section 1: Early Stimulation',
+    lessons: [{
+      id: 'bbd_1_1',
+      title: 'The Role of Sound',
+      type: 'text',
+      content: 'This is the text content for the role of sound.'
+    }, ]
+  }, ],
+}, ];
 
 export const DAILY_FEATURES_OPTIONS: DailyFeature[] = [
   { id: 'yoga', name: 'Yoga', icon: require('../assets/images/yoga.png'), route: '/content/yoga' },
