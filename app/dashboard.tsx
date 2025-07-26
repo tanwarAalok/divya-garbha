@@ -10,7 +10,7 @@ import DailyFeaturesGrid from '../components/DailyFeaturesGrid';
 import DashboardFooter from '../components/DashboardFooter';
 
 import DashboardHeader from '@/components/DashboardHeader';
-import { BlogItem } from '@/constants/types';
+import { BlogItem, CourseItem } from '@/constants/types';
 import {
   BLOG_POSTS,
   CONSULTATION_FLYER_INFO,
@@ -19,9 +19,42 @@ import {
   ENROLLED_COURSES
 } from '../constants/data';
 
+import sanityClient from '../sanity/client';
+import { useState, useEffect  } from 'react';
+
 export default function DashboardPage() {
   const userName = "Expectant Mother";
   const router = useRouter();
+  const [enrolledCourses, setEnrolledCourses] = useState<CourseItem[]>([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const query = `*[_type == "course"]{
+          "id": _id,
+          title,
+          description,
+          "image": image.asset->url,
+          sections[]{
+            title,
+            lessons[]->{
+              "id": _id,
+              title,
+              type,
+              content,
+              duration
+            }
+          }
+        }`;
+        const data = await sanityClient.fetch(query);
+        setEnrolledCourses(data);
+      } catch (error) {
+        console.error("Failed to fetch courses:", error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
 
 
   const handleCourseEnrollPress = (courseId: string) => {
@@ -47,6 +80,8 @@ export default function DashboardPage() {
     router.push('/profile' as any);
   };
 
+  console.log("Enrolled Courses:", enrolledCourses);
+
   return (
     <View className="flex-1 bg-background">
       <DashboardHeader
@@ -67,7 +102,7 @@ export default function DashboardPage() {
 
         <SectionTitle title="Continue Learning" />
         <CourseCarousel
-          courses={ENROLLED_COURSES}
+          courses={enrolledCourses}
           onEnrollPress={handleCourseEnrollPress}
         />
 

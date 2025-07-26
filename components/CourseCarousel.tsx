@@ -28,12 +28,12 @@ const CourseCarousel: React.FC<CourseCarouselProps> = ({ courses, onEnrollPress 
         }}
       >
         <Image
-          source={course.image}
+          source={{ uri: course.image }}
           style={{
             width: '100%',
             height: 200,
           }}
-          resizeMode="contain"
+          resizeMode="cover"
           className="rounded-lg mb-4 self-center"
         />
         <Text className="text-white text-xl font-bold mb-2">

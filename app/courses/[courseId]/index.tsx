@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,21 +6,48 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  ActivityIndicator,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ENROLLED_COURSES } from '@/constants/data';
+import sanityClient from '@/sanity/client';
+import { CourseItem } from '@/constants/types';
 
 export default function CourseDetailScreen() {
   const { courseId } = useLocalSearchParams();
   const router = useRouter();
-  const [expandedSections, setExpandedSections] = useState<number[]>([0]); // Default open first section
+  const [course, setCourse] = useState<CourseItem | null>(null);
+  const [expandedSections, setExpandedSections] = useState<number[]>([0]);
 
-  const course = ENROLLED_COURSES.find((c) => c.id === courseId);
+  useEffect(() => {
+    if (!courseId) return;
 
-  // Dummy progress for now - this would come from user's state
-  const completedLessons = 1; 
-  const totalLessons = course?.sections?.reduce((acc, section) => acc + section.lessons.length, 0) || 1;
-  const progress = (completedLessons / totalLessons) * 100;
+    const fetchCourseDetails = async () => {
+      const query = `*[_type == "course" && _id == $courseId][0]{
+        "id": _id,
+        title,
+        description,
+        "image": image.asset->url,
+        sections[]{
+          title,
+          lessons[]->{
+            "id": _id,
+            title,
+            type,
+            duration
+          }
+        }
+      }`;
+      const params = { courseId: courseId as string };
+      try {
+        const data = await sanityClient.fetch(query, params);
+        setCourse(data);
+      } catch (error) {
+        console.error('Failed to fetch course details:', error);
+      }
+    };
+
+    fetchCourseDetails();
+  }, [courseId]);
 
   const toggleSection = (index: number) => {
     setExpandedSections((prev) =>
@@ -29,27 +56,31 @@ export default function CourseDetailScreen() {
   };
 
   const navigateToLesson = (lessonId: string) => {
-    // Navigate to the new nested route
     router.push(`/courses/${courseId}/${lessonId}`);
   };
 
   if (!course) {
     return (
       <SafeAreaView className="flex-1 justify-center items-center bg-background">
-        <Text className="text-lg text-red-500">Course not found.</Text>
+        <ActivityIndicator size="large" color="#C6A784" />
+        <Text className="mt-4 text-secondaryText">Loading Course...</Text>
       </SafeAreaView>
     );
   }
 
+  // Dummy progress for now
+  const completedLessons = 1;
+  const totalLessons = course.sections?.reduce((acc, section) => acc + (section.lessons?.length || 0), 0) || 1;
+  const progress = (completedLessons / totalLessons) * 100;
+
   return (
     <SafeAreaView className="flex-1 bg-background">
       <ScrollView>
-        <Image source={course.image} className="w-full h-64" />
+        <Image source={{ uri: course.image }} className="w-full h-64" />
         <View className="p-6">
           <Text className="text-3xl font-bold text-primaryText mb-2">{course.title}</Text>
           <Text className="text-base text-secondaryText leading-6 mb-6">{course.description}</Text>
 
-          {/* Progress Bar */}
           <View className="mb-8">
             <Text className="text-secondaryText mb-2">{Math.round(progress)}% Complete</Text>
             <View className="bg-accentHighlight h-2 rounded-full">
@@ -71,7 +102,7 @@ export default function CourseDetailScreen() {
 
               {expandedSections.includes(index) && (
                 <View className="mt-2 rounded-lg overflow-hidden">
-                  {section.lessons.map((lesson, lessonIndex) => (
+                  {section.lessons?.map((lesson) => (
                     <TouchableOpacity
                       key={lesson.id}
                       onPress={() => navigateToLesson(lesson.id)}
