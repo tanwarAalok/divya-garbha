@@ -1,8 +1,8 @@
-// components/DashboardFooter/DashboardFooter.tsx
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
 import { FooterNavItem } from '@/constants/types';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 interface DashboardFooterProps {
   navItems: FooterNavItem[];
@@ -18,11 +18,11 @@ const DashboardFooter: React.FC<DashboardFooterProps> = ({ navItems, activeRoute
         <TouchableOpacity
           className={`flex-1 items-center py-2 rounded-lg ${activeRoute === item.route ? 'bg-primaryAction/10' : ''}`}
         >
-          <Text
-            className={`text-2xl mb-1 ${activeRoute === item.route ? 'text-primaryAction' : 'text-secondaryText'}`}
-          >
-            {item.icon || '✨'}
-          </Text>
+          <MaterialCommunityIcons
+            name={item.icon as any}
+            size={28}
+            className={`mb-1 ${activeRoute === item.route ? 'text-primaryAction' : 'text-secondaryText'}`}
+          />
           <Text
             className={`text-xs font-medium ${activeRoute === item.route ? 'text-primaryAction' : 'text-secondaryText'}`}
           >

@@ -175,11 +175,11 @@ export const CONSULTATION_FLYER_INFO = {
 };
 
 export const DASHBOARD_FOOTER_NAV_ITEMS: FooterNavItem[] = [
-  { name: 'Home', icon: 'home', route: '/dashboard' }, // Changed to dashboard
-  { name: 'Courses', icon: 'book', route: '/courses' },
-  { name: 'Webinar', icon: 'video', route: '/webinar' },
-  { name: 'Consult', icon: 'chat', route: '/consultation' },
-  { name: 'Shop', icon: 'cart', route: '/shop' },
+  { name: 'Home', icon: 'home-variant', route: '/dashboard' },
+  { name: 'Courses', icon: 'book-open-variant', route: '/courses' },
+  { name: 'Webinar', icon: 'play-box', route: '/webinar' },
+  { name: 'Consult', icon: 'chat-processing', route: '/consultation' },
+  { name: 'Shop', icon: 'cart-outline', route: '/shop' },
 ];
 
 export const ONBOARDING_CONTENT = {
