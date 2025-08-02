@@ -3,17 +3,17 @@ import { Link, useRouter } from 'expo-router';
 import React from 'react';
 import { Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
-import BlogSection from '../components/BlogSection';
-import SectionTitle from '../components/common/SectionTitle';
-import CourseCarousel from '../components/CourseCarousel';
-import CTAButton from '../components/CTAButton';
-import FAQSection from '../components/FAQSection';
-import HeroSection from '../components/HeroSection';
-import OptionsGrid from '../components/OptionsGrid';
-import TestimonialSection from '../components/TestimonialSection';
+import BlogSection from '@/components/BlogSection';
+import SectionTitle from '@/components/common/SectionTitle';
+import CourseCarousel from '@/components/CourseCarousel';
+import CTAButton from '@/components/CTAButton';
+import FAQSection from '@/components/FAQSection';
+import HeroSection from '@/components/HeroSection';
+import OptionsGrid from '@/components/OptionsGrid';
+import TestimonialSection from '@/components/TestimonialSection';
 
 import { BlogItem } from '@/constants/types';
-import { APP_OPTIONS, BLOG_POSTS, CTA_MESSAGES, FAQS, POPULAR_COURSES, TESTIMONIALS } from '../constants/data';
+import { APP_OPTIONS, BLOG_POSTS, CTA_MESSAGES, FAQS, POPULAR_COURSES, TESTIMONIALS } from '@/constants/data';
 
 const { width } = Dimensions.get('window');
 
@@ -79,7 +79,7 @@ export default function LandingPage() {
         <HeroSection
           title="Divya Garbha"
           subtitle="Your Companion for a Conscious & Joyful Pregnancy Journey."
-          imageSource={require('../assets/images/mother.png')}
+          imageSource={require('@/assets/images/mother.png')}
         />
 
         {/* Action Buttons */}

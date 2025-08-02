@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, Image, Linking, Alert, SafeAreaView } from 'react-native';
 import { useLocalSearchParams, useRouter, useNavigation } from 'expo-router';
-import { APP_SPECIFIC_CONTENT } from '../../constants/data';
-import { COLORS, FONT_SIZES } from '../../constants/theme';
+import { APP_SPECIFIC_CONTENT } from '@/constants/data';
 
 type Trimester = 'first' | 'second' | 'third';
 

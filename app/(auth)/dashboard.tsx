@@ -1,13 +1,12 @@
 // app/dashboard.tsx
 import { ScrollView, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
-
-import BlogSection from '../components/BlogSection';
-import SectionTitle from '../components/common/SectionTitle';
-import ConsultationFlyer from '../components/ConsultationFlyer';
-import CourseCarousel from '../components/CourseCarousel';
-import DailyFeaturesGrid from '../components/DailyFeaturesGrid';
-import DashboardFooter from '../components/DashboardFooter';
+import BlogSection from '@/components/BlogSection';
+import SectionTitle from '@/components/common/SectionTitle';
+import ConsultationFlyer from '@/components/ConsultationFlyer';
+import CourseCarousel from '@/components/CourseCarousel';
+import DailyFeaturesGrid from '@/components/DailyFeaturesGrid';
+import DashboardFooter from '@/components/DashboardFooter';
 
 import DashboardHeader from '@/components/DashboardHeader';
 import { BlogItem, CourseItem } from '@/constants/types';
@@ -17,9 +16,9 @@ import {
   DAILY_FEATURES_OPTIONS,
   DASHBOARD_FOOTER_NAV_ITEMS,
   ENROLLED_COURSES
-} from '../constants/data';
+} from '@/constants/data';
 
-import sanityClient from '../sanity/client';
+import sanityClient from '@/sanity/client';
 import { useState, useEffect  } from 'react';
 
 export default function DashboardPage() {
@@ -85,7 +84,7 @@ export default function DashboardPage() {
   return (
     <View className="flex-1 bg-background">
       <DashboardHeader
-        appLogoSource={require('../assets/images/logo-t.png')}
+        appLogoSource={require('@/assets/images/logo-t.png')}
         userNameInitials={userInitials}
         onProfilePress={handleProfilePress}
       />

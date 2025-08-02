@@ -7,10 +7,11 @@ import {
   SafeAreaView,
   StyleSheet,
   ActivityIndicator,
+  Platform // 1. Import Platform
 } from 'react-native';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { WebView } from 'react-native-webview';
-import sanityClient from '../../../sanity/client';
+import sanityClient from '../../../../sanity/client';
 import { Lesson } from '@/constants/types';
 
 export default function LessonScreen() {
@@ -41,7 +42,7 @@ export default function LessonScreen() {
     };
 
     fetchLesson();
-  }, [lessonId]);
+  }, [lessonId, navigation]);
 
   if (!lesson) {
     return (
@@ -51,27 +52,35 @@ export default function LessonScreen() {
       </SafeAreaView>
     );
   }
+
+  console.log(lesson)
   
-  const getYouTubeVideoId = (url: string) => {
-    const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/|vimeo\.com\/)(\d+)/;
-    const matches = url.match(regex);
-    return matches ? matches[1] : url; // Return original content if not a standard URL, assuming it's an ID
-  };
-  
-  const videoId = lesson.type === 'video' ? getYouTubeVideoId(lesson.content) : null;
-  const embedUrl = videoId ? `https://player.vimeo.com/video/${videoId}` : ''; // Using Vimeo as an example
+  const videoId = lesson.type === 'video' ? lesson.content : null;
+  const embedUrl = videoId ? `https://player.vimeo.com/video/${videoId}` : '';
+
+  console.log(videoId)
 
   return (
     <SafeAreaView className="flex-1 bg-background">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         {lesson.type === 'video' && embedUrl ? (
           <View style={styles.videoContainer}>
-            <WebView
-              style={styles.webview}
-              javaScriptEnabled={true}
-              domStorageEnabled={true}
-              source={{ uri: embedUrl }}
-            />
+            {/* 2. Conditionally render based on the platform */}
+            {Platform.OS === 'web' ? (
+              <iframe
+                src={embedUrl}
+                style={{ width: '100%', height: '100%', border: 0 }}
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <WebView
+                style={styles.webview}
+                javaScriptEnabled={true}
+                allowsFullscreenVideo={true}
+                source={{ uri: embedUrl }}
+              />
+            )}
           </View>
         ) : null}
 
