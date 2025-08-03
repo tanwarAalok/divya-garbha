@@ -12,8 +12,8 @@ import HeroSection from '@/components/HeroSection';
 import OptionsGrid from '@/components/OptionsGrid';
 import TestimonialSection from '@/components/TestimonialSection';
 
-import { BlogItem } from '@/constants/types';
 import { APP_OPTIONS, BLOG_POSTS, CTA_MESSAGES, FAQS, POPULAR_COURSES, TESTIMONIALS } from '@/constants/data';
+import { BlogItem } from '@/constants/types';
 
 const { width } = Dimensions.get('window');
 
@@ -75,7 +75,7 @@ export default function LandingPage() {
 
   return (
     <SafeAreaView className="flex-1 bg-background">
-      <ScrollView className="flex-grow px-6">
+      <ScrollView className="flex-grow">
         <HeroSection
           title="Divya Garbha"
           subtitle="Your Companion for a Conscious & Joyful Pregnancy Journey."
@@ -83,12 +83,12 @@ export default function LandingPage() {
         />
 
         {/* Action Buttons */}
-        <View className="flex-row justify-around items-center pb-8">
+        <View className="flex-row justify-around items-center pb-8 px-4">
           <Link href="/onboarding" asChild>
             <TouchableOpacity
               className="bg-primaryAction py-3 px-8 rounded-full shadow-md items-center flex-1 mx-2"
             >
-              <Text className="text-lg font-bold text-white">
+              <Text className="text-lg font-bold text-white text-center">
                 Get Started
               </Text>
             </TouchableOpacity>
@@ -98,7 +98,7 @@ export default function LandingPage() {
             <TouchableOpacity
               className="bg-accentBackground py-3 px-8 rounded-full border border-primaryAction items-center flex-1 mx-2"
             >
-              <Text className="text-lg font-bold text-primaryAction">
+              <Text className="text-lg font-bold text-primaryAction text-center">
                 Login
               </Text>
             </TouchableOpacity>
@@ -131,11 +131,13 @@ export default function LandingPage() {
           testimonials={TESTIMONIALS}
         />
 
-        <CTAButton
-          text={CTA_MESSAGES.getStarted.text}
-          subtitle={CTA_MESSAGES.getStarted.subtitle}
-          href={CTA_MESSAGES.getStarted.href}
-        />
+        <View style={{ paddingHorizontal: 16 }}>
+          <CTAButton
+            text={CTA_MESSAGES.getStarted.text}
+            subtitle={CTA_MESSAGES.getStarted.subtitle}
+            href={CTA_MESSAGES.getStarted.href}
+          />
+        </View>
 
         <SectionTitle title="FAQs" />
         <FAQSection

@@ -14,7 +14,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts, onReadMore, onViewAllB
   const displayedPosts = posts.slice(0, limit);
 
   return (
-    <View>
+    <View className="px-4">
       {displayedPosts.map((post) => (
         <View
           key={post.slug}

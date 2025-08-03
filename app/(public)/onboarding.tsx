@@ -1,7 +1,7 @@
 // app/onboarding.tsx
-import React from 'react';
-import { ScrollView, View, Text, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Link } from 'expo-router';
+import React from 'react';
+import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import { ONBOARDING_CONTENT } from '@/constants/data';
 

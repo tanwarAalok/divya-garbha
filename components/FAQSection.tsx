@@ -15,7 +15,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs }) => {
   };
 
   return (
-    <View>
+    <View
+      style={{paddingHorizontal: 16}}
+    >
       {faqs.map((faq, index) => (
         <View
           key={index}

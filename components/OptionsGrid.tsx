@@ -1,6 +1,6 @@
 // components/OptionsGrid/OptionsGrid.tsx
 import React from 'react';
-import { Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import { Dimensions, Text, TouchableOpacity, View } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -11,7 +11,7 @@ interface OptionsGridProps {
 
 const OptionsGrid: React.FC<OptionsGridProps> = ({ options, onPressOption }) => (
   <View
-    className="flex-row flex-wrap justify-between"
+    className="flex-row flex-wrap justify-between px-4"
   >
     {options.map((opt, idx) => (
       <TouchableOpacity
